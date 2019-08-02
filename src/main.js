@@ -3,6 +3,7 @@ import App from './App.vue';
 import VueRouter from 'vue-router';
 import router from './router';
 import 'bulma/css/bulma.min.css';
+import store from './store';
 
 Vue.use(VueRouter);
 Vue.config.productionTip = false;
@@ -15,5 +16,6 @@ Vue.filter('capitalize', function (value) {
 
 new Vue({
   router,
+  store,
   render: h => h(App),
 }).$mount('#app');

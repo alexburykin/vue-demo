@@ -52,7 +52,8 @@
 </template>
 
 <script>
-  import axios from 'axios'
+  import api from '@/shared/services/api.service.js'
+
 
   export default {
     data: function () {
@@ -63,7 +64,7 @@
     mounted: function () {
 
 
-      axios.get('https://swapi.co/api/planets').then((res) => {
+      api.get('/planets').then((res) => {
         this.planets = res.data.results;
         // success
       })

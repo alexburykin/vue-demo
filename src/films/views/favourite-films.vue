@@ -6,7 +6,7 @@
         <h3 class="title is-3">Films</h3>
       </div>
       <div class="column">
-        <router-link tag="button" to="favourite-films" class="button">Favourites Films</router-link>
+        {{ films.length }}
       </div>
     </div>
 
@@ -14,7 +14,6 @@
 
       <thead>
 
-      <th>ADD TO FAVOURITES</th>
       <!--<th>CHARACTERS</th>-->
       <th>CREATED</th>
       <th>DIRECTOR</th>
@@ -34,11 +33,6 @@
 
       <tbody>
       <tr v-for="film in films" :key="film.url">
-        <td>
-          <span @click="addFilmToFavourites(film)" class="icon">
-            <i class="fa fa-plus"></i>
-          </span>
-        </td>
         <!--<td>{{ film.characters }}</td>-->
         <td>{{ film.created }}</td>
         <td>{{ film.director}}</td>
@@ -61,7 +55,6 @@
 </template>
 
 <script>
-  import axios from 'axios'
   import store from '@/store.js';
 
   export default {
@@ -72,12 +65,7 @@
     },
     mounted: function () {
 
-
-      axios.get('https://swapi.co/api/films').then((res) => {
-        this.films = res.data.results;
-        // success
-      })
-
+      this.films = this.$store.state.favouriteFilms;
 
     },
     filters: {

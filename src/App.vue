@@ -9,7 +9,10 @@
         <li><router-link to="/planets" active-class="is-active">Planets</router-link></li>
         <li><router-link to="/people" active-class="is-active">People</router-link></li>
         <li><router-link to="/films" active-class="is-active">Films</router-link></li>
+        <li><router-link to="/store" active-class="is-active">Store</router-link></li>
       </ul>
+
+      {{ favouriteFilmsCount }}
     </aside>
 
     <main>
@@ -25,6 +28,11 @@
     // components: {
     //   HelloWorld,
     // },
+    computed: {
+      favouriteFilmsCount() {
+        return this.$store.getters.favouriteFilmsCount;
+      }
+    }
   };
 </script>
 
