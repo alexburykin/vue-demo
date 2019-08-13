@@ -10,53 +10,79 @@
       </div>
     </div>
 
-    <table class="table">
+    <div class="columns">
+      <div class="column filter-form">
+        <form @submit.prevent="filterFilms">
+          <div class="control has-icons-right">
+            <input @input="filterFilms" v-model="filters.search" class="input" type="text" placeholder="Type your query">
+            <span class="icon is-right">
+            <i class="fa fa-search"></i>
+          </span>
+          </div>
 
-      <thead>
+          <div class="control has-icons-right">
+            <select @change="filterFilms" v-model="filters.search" class="input">
+              <option value="">Select Category</option>
+              <option value="New Hope">New Hope</option>
+              <option value="Attack">Attack</option>
+            </select>
+          </div>
 
-      <th>ADD TO FAVOURITES</th>
-      <!--<th>CHARACTERS</th>-->
-      <th>CREATED</th>
-      <th>DIRECTOR</th>
-      <th>EDITED</th>
-      <th>EPISODE_ID</th>
-      <!--<th>OPENING_CRAWL</th>-->
-      <th>PLANETS</th>
-      <th>PRODUCER</th>
-      <th>RELEASE_DATE</th>
-      <th>SPECIES</th>
-      <!--<th>STARSHIPS</th>-->
-      <th>TITLE</th>
-      <th>URL</th>
-      <th>VEHICLES</th>
+          <button type="submit" class="button is-primary">Search</button>
+        </form>
+      </div>
 
-      </thead>
+      <div class="column">
+        <table class="table">
 
-      <tbody>
-      <tr v-for="film in films" :key="film.url">
-        <td>
+          <thead>
+
+          <th>ADD TO FAVOURITES</th>
+          <!--<th>CHARACTERS</th>-->
+          <th>TITLE</th>
+          <th>CREATED</th>
+          <!--<th>DIRECTOR</th>-->
+          <!--<th>EDITED</th>-->
+          <!--<th>EPISODE_ID</th>-->
+          <!--&lt;!&ndash;<th>OPENING_CRAWL</th>&ndash;&gt;-->
+          <!--<th>PLANETS</th>-->
+          <!--<th>PRODUCER</th>-->
+          <!--<th>RELEASE_DATE</th>-->
+          <!--<th>SPECIES</th>-->
+          <!--<th>STARSHIPS</th>-->
+          <!--<th>URL</th>-->
+          <!--<th>VEHICLES</th>-->
+
+          </thead>
+
+          <tbody>
+          <tr v-for="film in films" :key="film.url">
+            <td>
           <span @click="addFilmToFavourites(film)" class="icon">
             <i class="fa fa-plus"></i>
           </span>
-        </td>
-        <!--<td>{{ film.characters }}</td>-->
-        <td>{{ film.created }}</td>
-        <td>{{ film.director}}</td>
-        <td>{{ film.edited }}</td>
-        <td>{{ film.episode_id  }}</td>
-        <!--<td>{{ film.opening_crawl }}</td>-->
-        <td>{{ film.planets }}</td>
-        <td>{{ film.producer }}</td>
-        <td>{{ film.release_date }}</td>
-        <td>{{ film.species }}</td>
-        <!--<td>{{ film.starships }}</td>-->
-        <td>{{ film.title }}</td>
-        <td>{{ film.url }}</td>
-        <td>{{ film.vehicles }}</td>
-      </tr>
-      </tbody>
+            </td>
+            <!--<td>{{ film.characters }}</td>-->
+            <td>{{ film.title }}</td>
+            <td>{{ film.created }}</td>
+            <!--<td>{{ film.director}}</td>-->
+            <!--<td>{{ film.edited }}</td>-->
+            <!--<td>{{ film.episode_id  }}</td>-->
+            <!--&lt;!&ndash;<td>{{ film.opening_crawl }}</td>&ndash;&gt;-->
+            <!--<td>{{ film.planets }}</td>-->
+            <!--<td>{{ film.producer }}</td>-->
+            <!--<td>{{ film.release_date }}</td>-->
+            <!--<td>{{ film.species }}</td>-->
+            <!--<td>{{ film.starships }}</td>-->
+            <!--<td>{{ film.url }}</td>-->
+            <!--<td>{{ film.vehicles }}</td>-->
+          </tr>
+          </tbody>
 
-    </table>
+        </table>
+      </div>
+    </div>
+
   </div>
 </template>
 
@@ -67,18 +93,27 @@
   export default {
     data: function () {
       return {
-        films: []
+        films: [],
+        filters: {
+          search: '',
+          category: '',
+        },
       }
     },
+
+    beforeCreate: function () {
+    },
+
     mounted: function () {
 
+      this.filters.search =  this.$route.query.search;
+      this.filters.category =  this.$route.query.category;
+      this.filterFilms();
 
+      // debugger
       axios.get('https://swapi.co/api/films').then((res) => {
         this.films = res.data.results;
-        // success
       })
-
-
     },
     filters: {
       date: function (value) {
@@ -87,12 +122,14 @@
     },
     methods: {
       addFilmToFavourites(film) {
-        // store.state.favouriteFilms.push(film);
-
-        // store.commit('addFilmToFavourites', film);
-
         store.dispatch('addFilmToFavourites', film);
+      },
+      filterFilms() {
+        axios.get(`https://swapi.co/api/films?search=${this.filters.search}`).then((res) => {
+          this.films = res.data.results;
+        })
       }
+
     },
 
   }
@@ -100,5 +137,8 @@
 </script>
 
 <style lang="sass" scoped>
-
+  .filter-form
+    min-width: 280px
+    .control
+      margin-bottom: 10px
 </style>

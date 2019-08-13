@@ -5,20 +5,26 @@
 
         <div class="field">
           <div class="control">
-            <input v-model="user.email" class="input is-primary" type="email" placeholder="my@awesome.com">
+            <input v-validate.continues="'required|email'" v-model="user.email" name="email" ref="emailInput"
+                   class="input is-primary" type="text" placeholder="my@awesome.com">
+
+            <div style="color: red;" v-for="(err, i) in errors.collect('email')" :key="i"> {{err}} </div>
+            <!--<span>{{ errors.first('email') }}</span>-->
+            <!--<span>{{ errors.collect() }}</span>-->
           </div>
         </div>
 
 
         <div class="field">
           <div class="control">
-            <input v-model="user.password" class="input is-primary" type="password" placeholder="Password">
+
+            <input v-validate="'required'" v-model="user.password" name="password"
+                   class="input is-primary" type="password" placeholder="Password">
           </div>
         </div>
 
 
         <button type="submit" class="button is-primary">LOGIN</button>
-
 
       </form>
     </div>
@@ -26,7 +32,8 @@
 </template>
 
 <script>
-  import api from '@/shared/services/api.service.js'
+  // import api from '@/shared/services/api.service.js'
+  import axios from 'axios'
 
   export default {
 
@@ -40,23 +47,21 @@
     },
     methods: {
       login() {
-        setTimeout(() => {
-          this.saveUser({
-            token: 'sdfsadjfoiu90u90234mflkasdfasdf0w3r',
-            user: {
-              firstName: 'Vasya',
-              lastName: 'Pupkin',
-              photo: 'https://www.placecage.com/200/300'
-            }
-          })
-        }, 2000)
+        this.$validator.validate().then(valid => {
+          if (valid) {
+            axios.post('http://soft-liger-29.localtunnel.me/api/accounts/sign-in', this.user)
+              .then(res => {
+                if (res.success) {
+                  localStorage.setItem('user', JSON.stringify(res.user));
+                  localStorage.setItem('token', JSON.stringify(res.token));
+                  this.$router.push('/planets');
+                }
+              });
+          } else {
+            this.$refs.emailInput.focus();
+          }
+        });
       },
-
-      saveUser(user) {
-        localStorage.setItem('user', JSON.stringify(user));
-        api.init('https://swapi.co/api');
-        this.$router.push('/planets');
-      }
     }
   }
 

@@ -88,4 +88,11 @@
 
 <style lang="sass" scoped>
 
+.test
+  color: red;
+p
+  background-color: #fff
+
+p
+  
 </style>

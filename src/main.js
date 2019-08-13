@@ -4,8 +4,10 @@ import VueRouter from 'vue-router';
 import router from './router';
 import 'bulma/css/bulma.min.css';
 import store from './store';
+import VeeValidate from 'vee-validate';
 
 Vue.use(VueRouter);
+Vue.use(VeeValidate);
 Vue.config.productionTip = false;
 
 Vue.filter('capitalize', function (value) {

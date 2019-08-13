@@ -1,4 +1,4 @@
-<template>
+<template xmlns:v-slot="http://www.w3.org/1999/xhtml">
   <div id="app">
 
     <aside class="menu">
@@ -6,11 +6,17 @@
         <img alt="Vue logo" src="./assets/logo.png">
       </div>
       <ul class="menu-list">
-        <li><router-link to="/planets" active-class="is-active">Planets</router-link></li>
-        <li><router-link to="/people" active-class="is-active">People</router-link></li>
-        <li><router-link to="/films" active-class="is-active">Films</router-link></li>
-        <li><router-link to="/store" active-class="is-active">Store</router-link></li>
+
+
+        <nav-link v-for="link in links" :url="link" :key="link"><span>{{link}}</span></nav-link>
+
+        <!--<li><router-link to="/planets" active-class="is-active">Planets</router-link></li>-->
+        <!--<li><router-link to="/people" active-class="is-active">People</router-link></li>-->
+        <!--<li><router-link to="/films" active-class="is-active">Films</router-link></li>-->
+        <!--<li><router-link to="/store" active-class="is-active">Store</router-link></li>-->
       </ul>
+
+      <button @click="logout">ВЫЙТИ</button>
 
       {{ favouriteFilmsCount }}
     </aside>
@@ -23,20 +29,36 @@
 </template>
 
 <script>
+  import navLink from '@/components/nav-link';
+
   export default {
     name: 'app',
-    // components: {
-    //   HelloWorld,
-    // },
+    data: function() {
+      return {
+        links: [
+          'planets',
+          'films',
+        ]
+      }
+    },
+    components: {
+      navLink: navLink
+    },
     computed: {
       favouriteFilmsCount() {
         return this.$store.getters.favouriteFilmsCount;
+      }
+    },
+    methods: {
+      logout() {
+        localStorage.removeItem('user');
+        this.$router.push('/planets');
       }
     }
   };
 </script>
 
-<style lang="sass">
+<style lang="sass" scoped>
   #app
     font-family: 'Avenir', Helvetica, Arial, sans-serif
     -webkit-font-smoothing: antialiased
@@ -57,5 +79,7 @@
     main
       padding: 25px
       overflow: scroll
+  .linkClass
+    color: red
 
 </style>
