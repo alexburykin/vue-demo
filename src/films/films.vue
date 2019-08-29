@@ -11,7 +11,7 @@
     </div>
 
     <div class="columns">
-      <div class="column filter-form">
+      <div class="column is-3 filter-form">
         <form @submit.prevent="filterFilms">
           <div class="control has-icons-right">
             <input @input="filterFilms" v-model="filters.search" class="input" type="text" placeholder="Type your query">
@@ -21,7 +21,7 @@
           </div>
 
           <div class="control has-icons-right">
-            <select @change="filterFilms" v-model="filters.search" class="input">
+            <select @change="filterFilms" v-model="filters.category" class="input">
               <option value="">Select Category</option>
               <option value="New Hope">New Hope</option>
               <option value="Attack">Attack</option>
@@ -32,17 +32,17 @@
         </form>
       </div>
 
-      <div class="column">
+      <div class="column is-9">
         <table class="table">
 
           <thead>
 
-          <th>ADD TO FAVOURITES</th>
+          <th style="width: 20px">ADD TO FAVOURITES</th>
           <!--<th>CHARACTERS</th>-->
           <th>TITLE</th>
           <th>CREATED</th>
-          <!--<th>DIRECTOR</th>-->
-          <!--<th>EDITED</th>-->
+          <th>DIRECTOR</th>
+          <th>EDITED</th>
           <!--<th>EPISODE_ID</th>-->
           <!--&lt;!&ndash;<th>OPENING_CRAWL</th>&ndash;&gt;-->
           <!--<th>PLANETS</th>-->
@@ -65,8 +65,8 @@
             <!--<td>{{ film.characters }}</td>-->
             <td>{{ film.title }}</td>
             <td>{{ film.created }}</td>
-            <!--<td>{{ film.director}}</td>-->
-            <!--<td>{{ film.edited }}</td>-->
+            <td>{{ film.director}}</td>
+            <td>{{ film.edited.slice(0,10) }}</td>
             <!--<td>{{ film.episode_id  }}</td>-->
             <!--&lt;!&ndash;<td>{{ film.opening_crawl }}</td>&ndash;&gt;-->
             <!--<td>{{ film.planets }}</td>-->

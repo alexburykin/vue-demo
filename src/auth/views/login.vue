@@ -49,11 +49,11 @@
       login() {
         this.$validator.validate().then(valid => {
           if (valid) {
-            axios.post('http://soft-liger-29.localtunnel.me/api/accounts/sign-in', this.user)
+            axios.post('https://api.antonboksha.dev/api/accounts/sign-in', this.user)
               .then(res => {
-                if (res.success) {
-                  localStorage.setItem('user', JSON.stringify(res.user));
-                  localStorage.setItem('token', JSON.stringify(res.token));
+                if (res.data.token) {
+                  localStorage.setItem('user', JSON.stringify(res.data.user));
+                  localStorage.setItem('token', JSON.stringify(res.data.token));
                   this.$router.push('/planets');
                 }
               });
@@ -68,5 +68,7 @@
 </script>
 
 <style lang="sass" scoped>
-
+  .panel
+    width: 360px
+    margin-top: 60px
 </style>

@@ -64,7 +64,7 @@
     mounted: function () {
 
 
-      api.get('/planets').then((res) => {
+      api.get('https://swapi.co/api/planets').then((res) => {
         this.planets = res.data.results;
         // success
       })
@@ -94,5 +94,5 @@ p
   background-color: #fff
 
 p
-  
+
 </style>

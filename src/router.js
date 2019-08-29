@@ -1,8 +1,8 @@
 import VueRouter from 'vue-router';
 import PlanetsComponent from './planets/views/planets'
-import FilmsComponent from './films/views/films'
-import FilmComponent from './films/views/film'
-import FavouriteFilmsComponent from './films/views/favourite-films'
+import FilmsComponent from './films/films'
+import FilmComponent from './films/film'
+import FavouriteFilmsComponent from './films/favourite-films'
 import LoginComponent from './auth/views/login'
 import RegistrationComponent from './auth/views/registration'
 

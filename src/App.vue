@@ -16,9 +16,14 @@
         <!--<li><router-link to="/store" active-class="is-active">Store</router-link></li>-->
       </ul>
 
-      <button @click="logout">ВЫЙТИ</button>
+      <div class="info-widget">
+        <button class="button is-warning logout" @click="logout">LOGOUT</button>
+        <div>
+          favorite count:
+          {{ favouriteFilmsCount }}
+        </div>
+      </div>
 
-      {{ favouriteFilmsCount }}
     </aside>
 
     <main>
@@ -79,7 +84,14 @@
     main
       padding: 25px
       overflow: scroll
+      width: 100%
   .linkClass
     color: red
+
+  .logout
+    margin: 30px 0 20px
+
+  .info-widget
+    padding: 10px
 
 </style>

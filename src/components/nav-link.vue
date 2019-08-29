@@ -19,5 +19,7 @@
 
 <style lang="sass" scoped>
   .linkClass
-    color: green!important
+    color: green !important
+  li
+    margin-bottom: 10px
 </style>
