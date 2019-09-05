@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h3 class="title is-3">Log in</h3>
     <div class="panel">
       <form @submit.prevent="login">
 
