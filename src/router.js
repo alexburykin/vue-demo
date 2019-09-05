@@ -4,6 +4,7 @@ import FilmsComponent from './films/films'
 import FilmComponent from './films/film'
 import FavouriteFilmsComponent from './films/favourite-films'
 import LoginComponent from './auth/views/login'
+import ChatComponent from './chat/chat'
 import RegistrationComponent from './auth/views/registration'
 
 
@@ -39,6 +40,7 @@ const routes = [
   { path: '/favourite-films', component: FavouriteFilmsComponent },
 
   { path: '/login', component: LoginComponent },
+  { path: '/chat', component: ChatComponent },
   { path: '/registration', component: RegistrationComponent },
   {
     path: '**',

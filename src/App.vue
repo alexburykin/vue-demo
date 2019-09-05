@@ -43,6 +43,7 @@
         links: [
           'planets',
           'films',
+          'chat',
         ]
       }
     },
